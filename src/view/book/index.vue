@@ -5,17 +5,21 @@
                 <v-header></v-header>
             </el-header>
             <el-aside></el-aside>
-            <el-main></el-main>
+            <el-main>
+                <v-scene></v-scene>
+            </el-main>
             <el-footer></el-footer>
         </el-container>
     </div>
 </template>
 
 <script>
-	import vHeader from "../../components/book/header";
+	import vHeader from "../../components/book/vHeader";
+	import vScene from './component/scene'
 	export default {
 		components: {
-            vHeader
+            vHeader,
+			vScene
         },
 		name: "index"
 	}

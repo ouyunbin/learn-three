@@ -18,7 +18,7 @@
 
 <script>
 	export default {
-		name: "header",
+		name: "vHeader",
         data(){
 			return{
 				activeIndex:'1'
