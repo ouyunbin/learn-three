@@ -1,5 +1,6 @@
 <template>
-    <div class="box" id="box"></div>
+    <div class="box" id="box">
+    </div>
 </template>
 
 <script>
@@ -9,7 +10,7 @@
         data(){
 			return {}
         },
-        method:{
+        methods:{
 			init(){
 				var element = document.getElementById('box')
 				var width = element.clientWidth,
@@ -17,9 +18,9 @@
 				var scene = new three.Scene();
 				var camera = new three.PerspectiveCamera(45,width/height,0.1,1000);
 				var renderer = new three.WebGLRenderer();
-				renderer.setClearColorHex(0xeeeeee);
+				// renderer.setColors(0xeeeeee);
 				renderer.setSize(width,height);
-
+				element.appendChild(renderer.domElement);
 				var axes = new three.AxisHelper(20);
 				scene.add(axes);
 				var planeGeometry = new three.PlaneGeometry(60,20,1,1);
@@ -52,12 +53,11 @@
 				camera.position.y = 40;
 				camera.position.z = 30;
 				camera.lookAt(scene.position);
-
-				element.appendChild(renderer.domElement);
 				renderer.render(scene,camera)
+
             }
         },
-        mounter(){
+        mounted(){
 			this.init()
         }
 	}

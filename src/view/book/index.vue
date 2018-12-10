@@ -18,8 +18,11 @@
 	import vScene from './component/scene'
 	export default {
 		components: {
-            vHeader,
+			vHeader,
 			vScene
+        },
+        data(){
+			return{}
         },
 		name: "index"
 	}
