@@ -1,16 +1,23 @@
 <template>
-    <div class="box" id="box">
-        <div id="Stats-output"></div>
+    <div class="wrapper-inner">
+        <div class="box" id="box"></div>
+        <div id="Stats-output" class="stats"></div>
     </div>
 </template>
 
 <script>
-    import * as three from 'three'
-    import Stats from 'stats'
+    import * as dat from 'dat.gui'
+    import Stats from '@/common/method/stats'
+    import  three from '@/common/method/three'
 	export default {
 		name: "scene",
         data(){
-			return {}
+			return {
+				controls:{
+					rotationSpeed: 0.02,
+					bouncingSpeed:0.03
+                }
+            }
         },
         methods:{
 			init(){
@@ -26,11 +33,11 @@
 				camera.lookAt(scene.position);
 
                 var renderer = new three.WebGLRenderer(); // 定义渲染器，负责计算指定相机角度的场景在浏览器中的样子
-				renderer.setClearColor(0xEEEEEE,1.0);
+				renderer.setClearColorHex(0xEEEEEE,1.0);
 				renderer.setSize(width,height); // 设置渲染的范围
                 renderer.shadowMapEnabled = true;
 				element.appendChild(renderer.domElement); // 将渲染的元素挂载到浏览器相应的元素中
-				var axes = new three.AxisHelper(20); // 创建坐标轴对象
+                var axes = new three.AxisHelper(20); // 创建坐标轴对象
 				scene.add(axes); // 将坐标轴添加到场景中
 				var planeGeometry = new three.PlaneGeometry(60,20,1,1); // 定义平面的尺寸
 				var planeMaterial = new three.MeshLambertMaterial({color: 0xffffff}); // 设置平面的材质（颜色）
@@ -64,33 +71,51 @@
 				spotLight.position.set(-40,60,-10); // 设置光源的位置
                 spotLight.castShadow = true; // 定义光源产生阴影
                 scene.add(spotLight);
-				renderScene()
+                let stats = this.initStats();
+                let step = 0;
+                var _this = this;
                 function renderScene(){
-	                renderer.render(scene,camera)
+	                stats.update()
+                    // 几何体转动
+                    cube.rotation.x += _this.controls.rotationSpeed;
+	                cube.rotation.y += _this.controls.rotationSpeed;
+	                cube.rotation.z += _this.controls.rotationSpeed;
+	                // 球弹跳
+                    step += _this.controls.bouncingSpeed;
+                    sphere.position.x = 20+(10*(Math.cos(step)))
+                    sphere.position.y = 2+(10*Math.abs(Math.sin(step)));
                 	requestAnimationFrame(renderScene)
-
+	                renderer.render(scene,camera)
                 }
-
-
+				renderScene()
             },
             initStats(){
-				var stats = Stats;
-				console.log(JSON.stringify(stats))
+				var stats =new  Stats();
 				stats.setMode(0);
 				stats.domElement.style.position = 'absolute';
-	            stats.domElement.style.left = '0';
-	            stats.domElement.style.top = '0';
+	            stats.domElement.style.zIndex = '0';
 	            document.getElementById('Stats-output').appendChild(stats.domElement);
+                return stats;
+			},
+            initGui(){
+                let gui = new dat.GUI();
+                gui.add(this.controls,'rotationSpeed',0,0.5);
+                gui.add(this.controls,'bouncingSpeed',0,0.5)
             }
         },
         mounted(){
-			this.initStats()
+			this.initStats();
+			this.initGui()
 			this.init()
         }
 	}
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+    .wrapper-inner{
+        width: 100%;
+        position: relative;
+    }
     .box{
         width: 100%;
         min-height: 800px;
