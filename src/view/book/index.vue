@@ -15,6 +15,7 @@
                 </div>
                 <v-scene v-if="index==='0'"></v-scene>
                 <scene-one v-if="index==='1'"></scene-one>
+                <v-geometries v-if="index==='1.1'"></v-geometries>
             </el-main>
             <el-footer></el-footer>
         </el-container>
@@ -24,17 +25,20 @@
 <script>
 	import vHeader from "../../components/book/vHeader";
 	import vScene from './component/scene'
+    // chapter-01
     import sceneOne from './component/senceOne'
+    import vGeometries from './component/chapter02/geometries'
 	export default {
 		name: "threejs",
 		components: {
 			vHeader,
 			vScene,
-			sceneOne
+			sceneOne,
+			vGeometries
         },
         data(){
 			return{
-				index:'1',
+				index:'1.1',
 				nav:[
                     {
                     	name:'例子0',
@@ -43,7 +47,11 @@
 					{
 						name:'例子1',
 						index:'1'
-					}
+					},
+                    {
+                    	name:'Geometries',
+                        index:'1.1'
+                    }
                 ]
             }
         },
@@ -51,6 +59,23 @@
 			goto(index){
 				this.index = index;
             }
+        },
+        created(){
+	        this.$root.$on('removeDg',target=>{
+		        if(target){
+			        // let body = document.getElementsByTagName('body');
+			        // let dg = document.getElementsByClassName('dg')
+			        // if(dg){
+				    //     for(var i=0; i<dg.length; i++){
+					//         dg[i].parentNode.removeChild(dg[i]);
+				    //     }
+                    //
+			        // }
+		        }
+	        })
+        },
+        mounted(){
+
         }
 	}
 </script>

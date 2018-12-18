@@ -17,15 +17,6 @@
             }
         },
         methods:{
-			// 检测WebGL FPS变化
-		    initStats(){
-		    	var stats = new Stats();
-			    stats.setMode(0);
-			    stats.domElement.style.position = 'absolute';
-			    stats.domElement.style.zIndex = '0';
-		    	document.getElementById('fps').appendChild(stats.domElement);
-		    	return stats
-            },
             initScene(){
 		    	var element = document.getElementById('wrapper-one')
 		    	var _this = this;
@@ -105,11 +96,7 @@
                 gui.add(controls,'outputObjects');
                 gui.add(controls,'numberOfObjects').listen()
 	            animationRender()
-
 	            function animationRender(){
-		            requestAnimationFrame(animationRender);
-		            var stats = _this.initStats();
-		            stats.update()
 		            scene.traverse(function (e) {
                         if(e instanceof three.Mesh && e != plane){
                         	e.rotation.x += controls.rotationSpeed;
@@ -117,13 +104,16 @@
 	                        e.rotation.z += controls.rotationSpeed;
                         }
 		            })
+		            requestAnimationFrame(animationRender);
 		            renderer.render(scene,camera);
 	            }
             }
         },
         mounted(){
-            this.initStats();
-            this.initScene();
+			this.$root.$emit('removeDg',true)
+	        setTimeout(()=>{
+		        this.initScene();
+	        },500)
         }
 	}
 </script>

@@ -71,11 +71,10 @@
 				spotLight.position.set(-40,60,-10); // 设置光源的位置
                 spotLight.castShadow = true; // 定义光源产生阴影
                 scene.add(spotLight);
-                let stats = this.initStats();
+
                 let step = 0;
                 var _this = this;
                 function renderScene(){
-	                stats.update()
                     // 几何体转动
                     cube.rotation.x += _this.controls.rotationSpeed;
 	                cube.rotation.y += _this.controls.rotationSpeed;
@@ -89,14 +88,6 @@
                 }
 				renderScene()
             },
-            initStats(){
-				var stats =new  Stats();
-				stats.setMode(0);
-				stats.domElement.style.position = 'absolute';
-	            stats.domElement.style.zIndex = '0';
-	            document.getElementById('Stats-output').appendChild(stats.domElement);
-                return stats;
-			},
             initGui(){
                 let gui = new dat.GUI();
                 gui.add(this.controls,'rotationSpeed',0,0.5);
@@ -104,9 +95,12 @@
             }
         },
         mounted(){
-			this.initStats();
-			this.initGui()
-			this.init()
+	        this.$root.$emit('removeDg',true)
+			setTimeout(()=>{
+				this.initGui()
+				this.init()
+            },500)
+
         }
 	}
 </script>

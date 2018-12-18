@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>三维几何体</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <style>
+        .geometry,.cubeGeometry{
+            width: 100%;
+            height:100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<div class="geometry">
+    <div class="cubeGeometry" id="plane"></div>
+</div>
+<script src="../js/three.js"></script>
+<script src="../js/stats.js"></script>
+<script src="../js/tween.js"></script>
+<script src="../js/dat.gui.min.js"></script>
+<!--<script src="../js/geometry.js"></script>--> <!--正方体（长方体）-->
+<script src="../js/sphereGeometry.js"></script>  <!--球体（相关的立方体）-->
+<script src="../js/cylinderGeometry.js"></script>
+</body>
+</html>
