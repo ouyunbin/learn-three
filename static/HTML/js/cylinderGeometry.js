@@ -7,6 +7,7 @@ var cylinderGeometry = {
 	initStats(){
 		var stats = new Stats();
 		stats.domElement.style.position = 'absolute';
+		stats.setMode(0)
 		dom.appendChild(stats.domElement);
 		return stats;
 	},
