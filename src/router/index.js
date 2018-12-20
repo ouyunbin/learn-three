@@ -5,7 +5,6 @@ import HelloWorld from '@/components/HelloWorld'
 // THREE.JS开发指南首页内容
 import index from '@/view/book/index'
 import lifeCycle from '@/view/lifeCycle/index'
-
 Vue.use(Router)
 
 export default new Router({

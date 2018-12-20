@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>三维几何体</title>
+    <title>Three.js中的相机</title>
     <link rel="stylesheet" href="../css/reset.css">
     <style>
-        .geometry,.cubeGeometry{
+        .geometry,.three-camera{
             width: 100%;
             height:100%;
             position: absolute;
@@ -17,16 +17,12 @@
 </head>
 <body>
 <div class="geometry">
-    <div class="cubeGeometry" id="plane"></div>
+    <div class="three-camera" id="plane"></div>
 </div>
 <script src="../js/three.js"></script>
 <script src="../js/stats.js"></script>
 <script src="../js/tween.js"></script>
 <script src="../js/dat.gui.min.js"></script>
-<!--<script src="../js/geometry.js"></script>--> <!--正方体（长方体）-->
-<script src="../js/sphereGeometry.js"></script>  <!--球体（相关的立方体）-->
-<script src="../js/cylinderGeometry.js"></script> <!--圆柱体（椎体）-->
-<script src="../js/torusGeometry.js"></script> <!--圆环-->
-
+<script src="../js/threeCamera.js"></script>
 </body>
 </html>
